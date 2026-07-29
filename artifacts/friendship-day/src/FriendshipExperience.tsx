@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import Lenis from "lenis";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   FaGift,
   FaHeart,
@@ -112,24 +112,31 @@ const chapterNotes: Record<string, string> = {
 };
 
 function useFirstInteraction(onFirst: () => void) {
+  const callbackRef = useRef(onFirst);
+  callbackRef.current = onFirst;
+
   useEffect(() => {
+    let fired = false;
     const start = () => {
-      onFirst();
+      if (fired) return;
+      fired = true;
+      callbackRef.current();
       window.removeEventListener("pointerdown", start);
       window.removeEventListener("keydown", start);
       window.removeEventListener("touchstart", start);
     };
 
-    window.addEventListener("pointerdown", start, { once: true });
-    window.addEventListener("keydown", start, { once: true });
-    window.addEventListener("touchstart", start, { once: true });
+    window.addEventListener("pointerdown", start);
+    window.addEventListener("keydown", start);
+    window.addEventListener("touchstart", start);
 
     return () => {
       window.removeEventListener("pointerdown", start);
       window.removeEventListener("keydown", start);
       window.removeEventListener("touchstart", start);
     };
-  }, [onFirst]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
 
 function MagneticButton({
@@ -225,8 +232,13 @@ export default function FriendshipExperience() {
     []
   );
 
-  const startMusic = async () => {
+  const startMusic = useCallback(async () => {
     if (!audioRef.current || musicStarted) return;
+    // If the audio element is in an error state (e.g. file missing), mark started but don't crash
+    if (audioRef.current.error) {
+      setMusicStarted(true);
+      return;
+    }
     try {
       audioRef.current.volume = 0.45;
       await audioRef.current.play();
@@ -235,7 +247,7 @@ export default function FriendshipExperience() {
     } catch {
       setMusicStarted(true);
     }
-  };
+  }, [musicStarted]);
 
   useFirstInteraction(startMusic);
 
@@ -268,18 +280,17 @@ export default function FriendshipExperience() {
   }, []);
 
   useEffect(() => {
-    if (!cursorRef.current) return;
-    const context = gsap.context(() => {
-      window.addEventListener("pointermove", (event) => {
-        gsap.to(cursorRef.current, {
-          x: event.clientX,
-          y: event.clientY,
-          duration: 0.18,
-          ease: "power2.out"
-        });
+    const handleMove = (event: PointerEvent) => {
+      if (!cursorRef.current) return;
+      gsap.to(cursorRef.current, {
+        x: event.clientX,
+        y: event.clientY,
+        duration: 0.18,
+        ease: "power2.out"
       });
-    });
-    return () => context.revert();
+    };
+    window.addEventListener("pointermove", handleMove);
+    return () => window.removeEventListener("pointermove", handleMove);
   }, []);
 
   const toggleMusic = async () => {
@@ -337,7 +348,7 @@ export default function FriendshipExperience() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-silk text-ink">
-      <audio ref={audioRef} src="/music/song.mp3" loop preload="metadata" />
+      <audio ref={audioRef} src="/music/song.mp3" loop preload="metadata" onError={() => { /* no song.mp3 yet — suppress media error */ }} />
       <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />
 
       <AnimatePresence>
