@@ -137,6 +137,26 @@ const hiddenNotes = [
   "Tiny truth: life feels kinder with a friend like you.",
 ];
 
+const teddyMessages = [
+  "I knew you'd find me! 🧸❤️",
+  "Every adventure is better with a friend.",
+  "Thanks for stopping to say hello!",
+  "Hugs make everything better.",
+  "You have a kind heart.",
+];
+
+// Fixed positions that stay clear of main content and the music player (bottom-right)
+const teddySafeZones = [
+  { left: "6%",  top: "30%" },
+  { left: "88%", top: "22%" },
+  { left: "5%",  top: "55%" },
+  { left: "88%", top: "46%" },
+  { left: "7%",  top: "73%" },
+  { left: "83%", top: "63%" },
+  { left: "6%",  top: "42%" },
+  { left: "90%", top: "36%" },
+];
+
 const chapterNotes: Record<string, string> = {
   story: "a small beginning, saved carefully",
   gallery: "tap a photo, open a little pocket of memory",
@@ -257,6 +277,10 @@ export default function FriendshipExperience() {
   const [score, setScore] = useState(0);
   const [quizDone, setQuizDone] = useState(false);
   const [foundHearts, setFoundHearts] = useState<number[]>([]);
+  const [teddyFound, setTeddyFound] = useState(
+    () => localStorage.getItem("ee_teddy") === "true",
+  );
+  const [showAchievement, setShowAchievement] = useState(false);
   const [musicStarted, setMusicStarted] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -386,6 +410,13 @@ export default function FriendshipExperience() {
     );
   };
 
+  const handleTeddyFound = () => {
+    localStorage.setItem("ee_teddy", "true");
+    setTeddyFound(true);
+    setShowAchievement(true);
+    window.setTimeout(() => setShowAchievement(false), 4200);
+  };
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-silk text-ink">
       <audio
@@ -432,6 +463,11 @@ export default function FriendshipExperience() {
       </AnimatePresence>
 
       <FloatingDecor foundHearts={foundHearts} discoverHeart={discoverHeart} />
+
+      {!teddyFound && <HiddenTeddy onFound={handleTeddyFound} />}
+      <AnimatePresence>
+        {showAchievement && <AchievementToast label="Lost Teddy Found 🧸" />}
+      </AnimatePresence>
 
       <section id="welcome" className="hero-section">
         <motion.div
@@ -825,6 +861,136 @@ function GrandFinale({
         </motion.p>
       </motion.div>
     </motion.section>
+  );
+}
+
+// ── Hidden Teddy Bear Easter Egg ─────────────────────────────────────────────
+
+type TeddyPhase = "idle" | "jumping" | "hugging" | "gone";
+
+function HiddenTeddy({ onFound }: { onFound: () => void }) {
+  const [phase, setPhase] = useState<TeddyPhase>("idle");
+  const [message] = useState(
+    () => teddyMessages[Math.floor(Math.random() * teddyMessages.length)],
+  );
+  const [pos] = useState(
+    () => teddySafeZones[Math.floor(Math.random() * teddySafeZones.length)],
+  );
+  const [particles] = useState(() =>
+    Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      angle: (i / 10) * Math.PI * 2,
+      distance: 52 + (i % 3) * 22,
+      emoji: ["❤️", "✨", "💕", "🌸", "💖", "⭐"][i % 6],
+    })),
+  );
+
+  const handleClick = () => {
+    if (phase !== "idle") return;
+    setPhase("jumping");
+    window.setTimeout(() => setPhase("hugging"), 720);
+    window.setTimeout(() => {
+      setPhase("gone");
+      onFound();
+    }, 3700);
+  };
+
+  if (phase === "gone") return null;
+
+  const showMessage = phase === "jumping" || phase === "hugging";
+
+  return (
+    <>
+      <motion.button
+        type="button"
+        className="teddy-bear"
+        style={{ left: pos.left, top: pos.top }}
+        animate={
+          phase === "idle"
+            ? { rotate: [-5, 5, -5], y: [0, -7, 0] }
+            : phase === "jumping"
+              ? { y: [0, -42, 4, -18, 0], scale: [1, 1.42, 1.05, 1.26, 1] }
+              : { rotate: [-12, 12, -9, 9, 0], scale: [1, 1.18, 1] }
+        }
+        transition={
+          phase === "idle"
+            ? { duration: 3.8, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 0.65, ease: "easeInOut" }
+        }
+        whileHover={phase === "idle" ? { scale: 1.2, opacity: 1 } : undefined}
+        onClick={handleClick}
+        aria-label="Discover the hidden teddy bear"
+      >
+        🧸
+      </motion.button>
+
+      {/* Burst particles */}
+      <AnimatePresence>
+        {showMessage &&
+          particles.map((p) => (
+            <motion.span
+              key={p.id}
+              className="teddy-particle"
+              style={{ left: pos.left, top: pos.top }}
+              initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+              animate={{
+                x: Math.cos(p.angle) * p.distance,
+                y: Math.sin(p.angle) * p.distance,
+                scale: [0, 1.4, 0],
+                opacity: [1, 1, 0],
+              }}
+              transition={{ duration: 1.15, ease: "easeOut" }}
+            >
+              {p.emoji}
+            </motion.span>
+          ))}
+      </AnimatePresence>
+
+      {/* Message card */}
+      <AnimatePresence>
+        {showMessage && (
+          <motion.div
+            className="teddy-message"
+            initial={{ opacity: 0, scale: 0.84, y: 18 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: -12 }}
+            transition={{ duration: 0.46, delay: 0.2 }}
+          >
+            <motion.span
+              className="teddy-message-icon"
+              animate={{ rotate: [0, -16, 16, -10, 10, 0] }}
+              transition={{ duration: 0.9, delay: 0.5, repeat: 3 }}
+            >
+              🧸
+            </motion.span>
+            <p className="teddy-message-heading">
+              You found the Lost Teddy!
+              <br />
+              Thanks for giving me a hug. ❤️
+            </p>
+            <p className="teddy-message-quote">&ldquo;{message}&rdquo;</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+function AchievementToast({ label }: { label: string }) {
+  return (
+    <motion.div
+      className="achievement-toast"
+      initial={{ y: -88, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -88, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 210, damping: 24 }}
+    >
+      <span className="achievement-trophy">🏆</span>
+      <div>
+        <p className="achievement-label">Achievement Unlocked</p>
+        <p className="achievement-title">{label}</p>
+      </div>
+    </motion.div>
   );
 }
 

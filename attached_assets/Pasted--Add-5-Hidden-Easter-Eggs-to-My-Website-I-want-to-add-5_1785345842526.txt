@@ -1,0 +1,125 @@
+# Add 5 Hidden Easter Eggs to My Website
+
+I want to add **5 cute, hidden Easter eggs** to my website. The overall theme is **lovely, romantic, warm, and wholesome**. The Easter eggs should feel magical and rewarding—not distracting or annoying.
+
+## General Rules
+
+* Keep all existing website functionality unchanged.
+* Use only HTML, CSS, and JavaScript/TypeScript already used in the project.
+* No external libraries.
+* All animations should be smooth (60 FPS if possible).
+* Mobile and desktop compatible.
+* Use soft pastel colors that match the existing theme.
+* Sound effects should be optional and muted by default.
+* Each Easter egg should be hidden and only activate when its trigger is discovered.
+* Save completed Easter eggs in localStorage so users don't lose progress after refreshing.
+
+---
+
+## 1. Love Letter Hunt 💌
+
+Hide **5 tiny envelope icons** across different pages or sections of the website.
+
+Requirements:
+
+* Envelopes should blend naturally into the design.
+* Clicking one should play a small sparkle animation.
+* Show progress like "2/5 Love Letters Found".
+* After collecting all 5, open a beautiful animated love letter with a heartfelt message.
+* Add soft floating hearts while the letter is open.
+* Mark the achievement as completed.
+
+---
+
+## 2. Catch the Butterflies 🦋
+
+Hidden trigger:
+A secret keyboard word (for example: `butterfly`) or another hidden interaction.
+
+Gameplay:
+
+* 8–10 butterflies appear and gently fly around the screen.
+* The player catches them by clicking or tapping.
+* Butterflies should move naturally with curved paths.
+* Game lasts about 20 seconds.
+* After catching all butterflies:
+
+  * Play a sparkle animation.
+  * Show the message:
+    **"You caught every little moment. ❤️"**
+
+---
+
+## 3. Heart Collector 💖
+
+Hidden trigger:
+A secret click combination or keyboard code.
+
+Gameplay:
+
+* Small glowing hearts float upward across the screen.
+* Player collects 20 hearts.
+* Hearts should gently wiggle while floating.
+* Each collected heart creates a tiny pop animation.
+* After completion:
+
+  * Confetti made of hearts appears.
+  * Show:
+    **"Your heart is full of love."**
+
+---
+
+## 4. Bloom the Garden 🌸
+
+Hidden trigger:
+Click a small flower pot hidden somewhere on the page.
+
+Gameplay:
+
+* User repeatedly clicks or taps the flower pot to water it.
+* Seed → Sprout → Leaves → Bud → Bloom animation.
+* Final flower should bloom into a heart-shaped flower.
+* Add butterflies and sparkles after blooming.
+* Show:
+  **"Love grows with every little moment."**
+
+---
+
+## 5. Heart Chase 💞
+
+Hidden trigger:
+A hidden heart icon.
+
+Gameplay:
+
+* A cute little heart appears.
+* It playfully avoids the cursor but never too fast.
+* After several attempts, it lets the player catch it.
+* When clicked:
+
+  * It grows slightly.
+  * Small hearts burst around it.
+  * Display:
+    **"I was waiting for you. ❤️"**
+
+---
+
+## Extra Polish
+
+* Add a hidden "Easter Egg Collection" panel showing:
+
+  * Love Letter Hunt ✅
+  * Catch the Butterflies ✅
+  * Heart Collector ✅
+  * Bloom the Garden ✅
+  * Heart Chase ✅
+
+* When all five Easter eggs are completed:
+
+  * Unlock a special celebration.
+  * Fill the screen with soft floating hearts, flowers, butterflies, and sparkles.
+  * Display a beautiful message:
+
+**"You found every hidden little piece of love. Thank you for exploring every corner of this experience. ❤️✨"**
+
+The implementation should feel elegant, magical, and seamlessly integrated into the existing website rather than looking like separate mini-games.
