@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Friendship Day Experience"
+version = "1.0.0"
+id = "artifacts/friendship-day"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19516
+
+[services.development]
+run = "pnpm --filter @workspace/friendship-day run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/friendship-day", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/friendship-day/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19516"
+BASE_PATH = "/"
