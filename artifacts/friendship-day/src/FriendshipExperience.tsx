@@ -157,6 +157,33 @@ const teddySafeZones = [
   { left: "90%", top: "36%" },
 ];
 
+// Letter egg — different corners from teddy zones
+const letterEggZones = [
+  { left: "14%", top: "22%" },
+  { left: "80%", top: "76%" },
+  { left: "12%", top: "68%" },
+  { left: "83%", top: "15%" },
+  { left: "16%", top: "82%" },
+];
+
+// Garden pot — tucked in less-visited areas
+const gardenPotZones = [
+  { left: "92%", top: "52%" },
+  { left: "7%",  top: "86%" },
+  { left: "87%", top: "84%" },
+  { left: "3%",  top: "15%" },
+];
+
+const GROWTH_EMOJIS = ["🪴", "🌱", "🌿", "🌷", "🌸", "💖"];
+const GROWTH_LABELS = [
+  "Every beautiful journey begins with a tiny seed.",
+  "A tiny sprout breaks through! 🌱",
+  "Growing leaves reaching for the light… 🌿",
+  "A little bud is forming… 🌷",
+  "Starting to bloom… 🌸",
+  "Love grows with every little moment. 🌸",
+];
+
 const chapterNotes: Record<string, string> = {
   story: "a small beginning, saved carefully",
   gallery: "tap a photo, open a little pocket of memory",

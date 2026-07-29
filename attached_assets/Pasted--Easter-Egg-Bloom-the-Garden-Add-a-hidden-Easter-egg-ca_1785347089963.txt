@@ -1,0 +1,83 @@
+# Easter Egg: Bloom the Garden 🌸
+
+Add a hidden Easter egg called **"Bloom the Garden"** that feels peaceful, magical, and full of love. It should blend naturally with the website's lovely aesthetic and reward curious users with a beautiful interactive experience.
+
+## Concept
+
+Hide a **small empty flower pot** somewhere on the website. It should look like a decorative part of the page so only observant users discover it.
+
+## Trigger
+
+* The flower pot should be small, cute, and blend into the existing design.
+* On hover, it should gently sway or sparkle, hinting that it's interactive.
+* Clicking the flower pot starts the mini experience.
+
+## Gameplay
+
+The user helps a flower grow through simple interactions.
+
+### Stage 1 – Plant the Seed 🌱
+
+* The empty pot appears in the center of the screen.
+* A tiny seed gently falls into the pot with a soft animation.
+* Display:
+  **"Every beautiful journey begins with a tiny seed."**
+
+### Stage 2 – Water the Plant 💧
+
+* A cute watering can appears.
+* The user clicks or taps the watering can **5 times** to water the seed.
+* With each click:
+
+  * Water droplets fall.
+  * The soil sparkles.
+  * Gentle nature sounds play (optional and muted by default).
+  * A progress indicator fills.
+
+### Stage 3 – Watch It Grow 🌿
+
+The plant grows through smooth animated stages:
+
+* 🌱 Tiny sprout
+* 🌿 Small stem with leaves
+* 🌷 Flower bud
+* 🌸 A beautiful blooming flower
+* 💖 The flower finally blossoms into a **heart-shaped flower** with glowing petals.
+
+Each stage should feel smooth and magical with subtle sparkles.
+
+## Celebration
+
+Once the flower fully blooms:
+
+* Butterflies gently fly around the flower.
+* Flower petals drift across the screen.
+* Soft glowing hearts float upward.
+* The flower emits a warm golden glow.
+
+Display the message:
+
+**🌸 "Love grows with every little moment."**
+
+## Reward
+
+Unlock the achievement:
+
+**🏆 Garden of Love**
+
+Save the achievement in `localStorage` so it remains unlocked on future visits.
+
+## Bonus Features
+
+* The completed flower can remain as a decorative element for the rest of the session.
+* Add a **Replay Bloom Animation** option in the Easter Egg Collection after it has been unlocked.
+* Use smooth CSS animations and lightweight JavaScript only.
+* Ensure the experience is fully responsive on desktop and mobile.
+* Do not affect the existing layout or functionality of the website.
+
+## Design Style
+
+* Soft pastel pinks, whites, greens, and warm golden highlights.
+* Rounded, cute illustrations.
+* Gentle animations with no sudden movements.
+* The experience should feel calming, wholesome, and magical, as if the user has secretly nurtured a little piece of love hidden within the website.

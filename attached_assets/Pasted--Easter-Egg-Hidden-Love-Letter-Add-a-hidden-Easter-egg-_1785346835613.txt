@@ -1,0 +1,71 @@
+# Easter Egg: Hidden Love Letter 💌
+
+Add a hidden Easter egg called **"The Secret Love Letter"** that perfectly matches the website's lovely, warm, and magical theme.
+
+## Concept
+
+Hide a tiny sealed love letter somewhere on the website. It should be subtle enough that only curious users will discover it while exploring.
+
+## Trigger
+
+* Place a small envelope icon in a hidden location that blends naturally with the design.
+* It should not interfere with any buttons or content.
+* The envelope should have a gentle floating animation to make it feel alive.
+* On hover, it should glow softly and emit tiny sparkles.
+
+## Opening Animation
+
+When the user clicks the envelope:
+
+* The screen slightly dims.
+* The envelope floats to the center of the screen.
+* It slowly opens with a smooth paper-unfolding animation.
+* Soft hearts, sparkles, and flower petals gently float around.
+* A beautiful handwritten-style letter appears.
+
+## Love Letter
+
+Display the following message:
+
+> **To the wonderful soul exploring this little world, ❤️**
+>
+> Every click, every smile, and every moment you spend here makes this place feel a little more magical.
+>
+> Thank you for taking the time to discover the hidden corners of this experience.
+>
+> May your days always be filled with kindness, laughter, warm memories, and people who truly care about you.
+>
+> Sometimes the smallest surprises carry the biggest feelings.
+>
+> **With lots of love,**
+>
+> **A Hidden Friend 💌**
+
+## Finishing Animation
+
+After the user finishes reading:
+
+* The letter gently folds itself closed.
+* It transforms into a glowing heart.
+* The heart floats upward and fades into tiny sparkles.
+* Show the message:
+
+**✨ "You discovered a hidden piece of love."**
+
+## Achievement
+
+Unlock:
+
+**🏆 Secret Love Letter Found**
+
+Save the achievement in `localStorage` so it remains unlocked on future visits.
+
+## Bonus Features
+
+* The letter should only appear once per user unless they reset their Easter egg progress.
+* Add a **Replay Letter** option in the Easter Egg Collection after it has been discovered.
+* Include a **Close** button so users can exit the animation at any time.
+* Ensure the animation is responsive and works smoothly on both desktop and mobile devices.
+* Keep all colors, fonts, and animations consistent with the existing lovely theme of the website.
+
+The entire experience should feel emotional, magical, elegant, and rewarding—as if the visitor has discovered a heartfelt message hidden just for them.
