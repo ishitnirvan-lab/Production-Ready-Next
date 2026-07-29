@@ -1,4 +1,10 @@
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import gsap from "gsap";
 import Lenis from "lenis";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -11,7 +17,7 @@ import {
   FaRegEnvelope,
   FaRegStar,
   FaVolumeMute,
-  FaVolumeUp
+  FaVolumeUp,
 } from "react-icons/fa";
 
 const memories = [
@@ -19,54 +25,84 @@ const memories = [
     src: "/memories/memory-01.jpeg",
     title: "Little scrapbook smiles",
     note: "This one already feels like it was saved between two pages of a memory book.",
-    rotate: "-rotate-2"
+    rotate: "-rotate-2",
   },
   {
     src: "/memories/memory-02.jpeg",
     title: "Evening sparkle",
     note: "A soft evening, a tiny sparkle, and that easy Khanku ✨ kind of calm.",
-    rotate: "rotate-2"
+    rotate: "rotate-2",
   },
   {
     src: "/memories/memory-03.jpeg",
     title: "A simple Thursday",
     note: "Dear 🌸, this is why ordinary days never feel completely ordinary with you.",
-    rotate: "-rotate-1"
+    rotate: "-rotate-1",
   },
   {
     src: "/memories/memory-04.jpeg",
     title: "Bacha energy",
     note: "Cute, a little dramatic, and honestly impossible not to smile at.",
-    rotate: "rotate-1"
+    rotate: "rotate-1",
   },
   {
     src: "/memories/memory-05.jpeg",
     title: "Heart filter classic",
     note: "Soft hearts, softer smile, peak Khanku charm. This one stays special.",
-    rotate: "-rotate-3"
+    rotate: "-rotate-3",
   },
   {
     src: "/memories/memory-06.jpeg",
     title: "Quiet comfort",
     note: "The peaceful friend vibe that makes even quiet moments feel safe.",
-    rotate: "rotate-3"
-  }
+    rotate: "rotate-3",
+  },
 ];
 
 const timeline = [
-  ["How we met", "Some friendships arrive quietly, then slowly become part of your normal day in the best way."],
-  ["Funny moments", "The random laughs, silly moods, and tiny inside jokes that make no sense to anyone else."],
-  ["Important memories", "The days that stayed, the talks that mattered, and the little things we somehow never forgot."],
-  ["Special experiences", "A page for everything that made this bond feel rare, comfortable, safe, and real."]
+  [
+    "How we met",
+    "Some friendships arrive quietly, then slowly become part of your normal day in the best way.",
+  ],
+  [
+    "Funny moments",
+    "The random laughs, silly moods, and tiny inside jokes that make no sense to anyone else.",
+  ],
+  [
+    "Important memories",
+    "The days that stayed, the talks that mattered, and the little things we somehow never forgot.",
+  ],
+  [
+    "Special experiences",
+    "A page for everything that made this bond feel rare, comfortable, safe, and real.",
+  ],
 ];
 
 const appreciation = [
-  ["Kindness", "You make people feel noticed in a way that feels natural, never forced."],
-  ["Support", "You show up in the small moments, and those small moments are never small to me."],
-  ["Humor", "You can turn a normal conversation into something I remember later and smile about."],
-  ["Honesty", "You keep things real, but still gentle enough to feel safe around."],
-  ["Caring nature", "Dear 🌸, your care has this quiet way of staying with people."],
-  ["Positive energy", "Even one tiny message from you can make a heavy day feel lighter."]
+  [
+    "Kindness",
+    "You make people feel noticed in a way that feels natural, never forced.",
+  ],
+  [
+    "Support",
+    "You show up in the small moments, and those small moments are never small to me.",
+  ],
+  [
+    "Humor",
+    "You can turn a normal conversation into something I remember later and smile about.",
+  ],
+  [
+    "Honesty",
+    "You keep things real, but still gentle enough to feel safe around.",
+  ],
+  [
+    "Caring nature",
+    "Dear 🌸, your care has this quiet way of staying with people.",
+  ],
+  [
+    "Positive energy",
+    "Even one tiny message from you can make a heavy day feel lighter.",
+  ],
 ];
 
 const chats = [
@@ -74,31 +110,31 @@ const chats = [
   ["her", "Aww, why so sweet today?"],
   ["me", "Friendship Day website pressure. I had to behave premium."],
   ["her", "Khanku approves ✨"],
-  ["me", "Good. This page was made only for you, Bacha ❤️"]
+  ["me", "Good. This page was made only for you, Bacha ❤️"],
 ];
 
 const quiz = [
   {
     question: "What should this friendship always keep?",
     options: ["Honesty and laughter", "Formality", "Silent treatment"],
-    answer: 0
+    answer: 0,
   },
   {
     question: "Best cure for a boring day?",
     options: ["One chaotic conversation", "More boring", "Ignoring everyone"],
-    answer: 0
+    answer: 0,
   },
   {
     question: "What does Bacha deserve today?",
     options: ["A little surprise", "Zero appreciation", "A plain webpage"],
-    answer: 0
-  }
+    answer: 0,
+  },
 ];
 
 const hiddenNotes = [
   "Secret note: You matter more than you realize, even on your quiet days.",
   "Hidden heart found: your smile is officially bookmarked in my brain.",
-  "Tiny truth: life feels kinder with a friend like you."
+  "Tiny truth: life feels kinder with a friend like you.",
 ];
 
 const chapterNotes: Record<string, string> = {
@@ -108,7 +144,7 @@ const chapterNotes: Record<string, string> = {
   letter: "one folded note, kept soft on purpose",
   chat: "because some messages deserve to be kept",
   fun: "a tiny playful break, because of course",
-  surprise: "the last page before the quiet ending"
+  surprise: "the last page before the quiet ending",
 };
 
 function useFirstInteraction(onFirst: () => void) {
@@ -135,14 +171,14 @@ function useFirstInteraction(onFirst: () => void) {
       window.removeEventListener("keydown", start);
       window.removeEventListener("touchstart", start);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
 function MagneticButton({
   children,
   onClick,
-  href
+  href,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
@@ -165,7 +201,7 @@ function MagneticButton({
     },
     onClick,
     style: { x: springX, y: springY },
-    className: "magnetic-button"
+    className: "magnetic-button",
   };
 
   if (href) {
@@ -212,7 +248,9 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 export default function FriendshipExperience() {
   const [loaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [activeMemory, setActiveMemory] = useState<(typeof memories)[number] | null>(null);
+  const [activeMemory, setActiveMemory] = useState<
+    (typeof memories)[number] | null
+  >(null);
   const [letterOpen, setLetterOpen] = useState(false);
   const [giftOpen, setGiftOpen] = useState(false);
   const [quizStep, setQuizStep] = useState(0);
@@ -228,8 +266,8 @@ export default function FriendshipExperience() {
 
   const typedLetter = useMemo(
     () =>
-      "Dear Khanku ✨,\n\nHappy Friendship Day. I wanted this to feel less like a website and more like a little corner made only for you.\n\nThank you for being the friend who makes normal days softer, boring moments funnier, and heavy days easier to carry. Your kindness, your honest heart, your cute moods, and the way you care are things I notice more than I say.\n\nBacha ❤️, I hope this reminds you that you are valued, appreciated, and never taken for granted.\n\nThank you for being you. Really.",
-    []
+      "Dear Khanku ✨,\n\nHappy Friendship Day. I wanted this to feel less like a website and more like a little corner made only for you.\n\nThank you for being the friend who makes normal days softer, boring moments funnier, and heavy days easier to carry. Your kindness, your honest heart, your cute moods, and the way you care are things I notice more than I say.\n\nBacha ❤️, I hope this reminds you that you are valued, appreciated, and never taken for granted.\n\nThank you for being you. Really.Love you bacha",
+    [],
   );
 
   const startMusic = useCallback(async () => {
@@ -286,7 +324,7 @@ export default function FriendshipExperience() {
         x: event.clientX,
         y: event.clientY,
         duration: 0.18,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     };
     window.addEventListener("pointermove", handleMove);
@@ -330,7 +368,7 @@ export default function FriendshipExperience() {
       particleCount: 120,
       spread: 80,
       origin: { y: 0.72 },
-      colors: ["#f7abc6", "#c9b8ff", "#fff6df", "#c7984c"]
+      colors: ["#f7abc6", "#c9b8ff", "#fff6df", "#c7984c"],
     });
   };
 
@@ -343,12 +381,22 @@ export default function FriendshipExperience() {
   };
 
   const discoverHeart = (index: number) => {
-    setFoundHearts((current) => (current.includes(index) ? current : [...current, index]));
+    setFoundHearts((current) =>
+      current.includes(index) ? current : [...current, index],
+    );
   };
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-silk text-ink">
-      <audio ref={audioRef} src="/music/song.mp3" loop preload="metadata" onError={() => { /* no song.mp3 yet — suppress media error */ }} />
+      <audio
+        ref={audioRef}
+        src="/music/song.mp3"
+        loop
+        preload="metadata"
+        onError={() => {
+          /* no song.mp3 yet — suppress media error */
+        }}
+      />
       <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />
 
       <AnimatePresence>
@@ -363,12 +411,21 @@ export default function FriendshipExperience() {
               <div className="loading-orbit">
                 <FaHeart />
               </div>
-              <p className="font-script text-4xl text-[#a75f80]">For Bacha ❤️</p>
-              <h1 className="mt-3 font-display text-3xl">Opening a little memory book</h1>
+              <p className="font-script text-4xl text-[#a75f80]">
+                For Bacha ❤️
+              </p>
+              <h1 className="mt-3 font-display text-3xl">
+                Opening a little memory book
+              </h1>
               <div className="mt-8 h-2 overflow-hidden rounded-full bg-white/60">
-                <motion.div className="h-full bg-[#d49a55]" style={{ width: `${progress}%` }} />
+                <motion.div
+                  className="h-full bg-[#d49a55]"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
-              <p className="mt-3 text-sm font-medium text-[#77566d]">{progress}%</p>
+              <p className="mt-3 text-sm font-medium text-[#77566d]">
+                {progress}%
+              </p>
             </div>
           </motion.section>
         )}
@@ -396,7 +453,9 @@ export default function FriendshipExperience() {
               Begin the Journey
             </MagneticButton>
           </div>
-          <p className="hand-note mt-7">made slowly, carefully, and only for you</p>
+          <p className="hand-note mt-7">
+            made slowly, carefully, and only for you
+          </p>
         </motion.div>
       </section>
 
@@ -437,8 +496,12 @@ export default function FriendshipExperience() {
             >
               <span className="tape" aria-hidden="true" />
               <img src={memory.src} alt={memory.title} className="photo" />
-              <span className="font-script text-2xl text-[#84506d]">{memory.title}</span>
-              <em>{index % 2 === 0 ? "little keeper" : "saved with a smile"}</em>
+              <span className="font-script text-2xl text-[#84506d]">
+                {memory.title}
+              </span>
+              <em>
+                {index % 2 === 0 ? "little keeper" : "saved with a smile"}
+              </em>
             </motion.button>
           ))}
         </div>
@@ -513,23 +576,38 @@ export default function FriendshipExperience() {
             <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/60">
               <motion.div
                 className="h-full rounded-full bg-[#c7984c]"
-                animate={{ width: `${quizDone ? 100 : ((quizStep + 1) / quiz.length) * 100}%` }}
+                animate={{
+                  width: `${quizDone ? 100 : ((quizStep + 1) / quiz.length) * 100}%`,
+                }}
               />
             </div>
             {!quizDone ? (
               <div className="mt-6">
-                <p className="font-medium leading-7">{quiz[quizStep].question}</p>
+                <p className="font-medium leading-7">
+                  {quiz[quizStep].question}
+                </p>
                 <div className="mt-5 grid gap-3">
                   {quiz[quizStep].options.map((option, index) => (
-                    <button key={option} type="button" className="answer-button" onClick={() => answerQuiz(index)}>
+                    <button
+                      key={option}
+                      type="button"
+                      className="answer-button"
+                      onClick={() => answerQuiz(index)}
+                    >
                       {option}
                     </button>
                   ))}
                 </div>
               </div>
             ) : (
-              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mt-6">
-                <p className="font-display text-4xl text-[#9f5b86]">{score}/{quiz.length}</p>
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="mt-6"
+              >
+                <p className="font-display text-4xl text-[#9f5b86]">
+                  {score}/{quiz.length}
+                </p>
                 <p className="mt-2 text-sm leading-6 text-[#72576b]">
                   Perfect friendship energy. Obviously. Celebration unlocked.
                 </p>
@@ -540,7 +618,8 @@ export default function FriendshipExperience() {
           <section className="glass-panel">
             <h3 className="font-display text-2xl">Hidden Hearts</h3>
             <p className="mt-3 text-sm leading-6 text-[#72576b]">
-              Find the glowing hearts floating through the page. They are tiny things I wanted to say quietly.
+              Find the glowing hearts floating through the page. They are tiny
+              things I wanted to say quietly.
             </p>
             <div className="mt-6 grid gap-3">
               {hiddenNotes.map((note, index) => (
@@ -573,9 +652,12 @@ export default function FriendshipExperience() {
                 initial={{ opacity: 0, y: 24, scale: 0.94 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
               >
-                <p className="font-script text-4xl text-[#9f5b86]">Happy Friendship Day ❤️</p>
+                <p className="font-script text-4xl text-[#9f5b86]">
+                  Happy Friendship Day ❤️
+                </p>
                 <p className="mt-3 text-sm leading-6 text-[#72576b]">
-                  Thank you for being such an amazing friend, and for being you in a way nobody else can copy.
+                  Thank you for being such an amazing friend, and for being you
+                  in a way nobody else can copy.
                 </p>
                 <MagneticButton href="#welcome">
                   <FaHeart aria-hidden="true" />
@@ -592,13 +674,25 @@ export default function FriendshipExperience() {
       </AnimatePresence>
 
       <div className="fixed bottom-5 right-4 z-40 flex items-center gap-2 rounded-full border border-white/50 bg-white/50 p-2 shadow-glow backdrop-blur-xl">
-        <button type="button" className="music-button" onClick={toggleMusic} aria-label="Play or pause music">
+        <button
+          type="button"
+          className="music-button"
+          onClick={toggleMusic}
+          aria-label="Play or pause music"
+        >
           {musicPlaying ? <FaPause /> : <FaPlay />}
         </button>
-        <button type="button" className="music-button" onClick={toggleMute} aria-label="Mute or unmute music">
+        <button
+          type="button"
+          className="music-button"
+          onClick={toggleMute}
+          aria-label="Mute or unmute music"
+        >
           {muted ? <FaVolumeMute /> : <FaVolumeUp />}
         </button>
-        <FaMusic className={`mx-2 text-sm ${musicPlaying ? "animate-pulse text-[#c7984c]" : "text-[#8b6c7d]"}`} />
+        <FaMusic
+          className={`mx-2 text-sm ${musicPlaying ? "animate-pulse text-[#c7984c]" : "text-[#8b6c7d]"}`}
+        />
       </div>
 
       <AnimatePresence>
@@ -617,7 +711,12 @@ export default function FriendshipExperience() {
               exit={{ scale: 0.95, y: 20 }}
               onClick={(event) => event.stopPropagation()}
             >
-              <img src={activeMemory.src} alt={activeMemory.title} className="rounded-[1.25rem]" style={{ width: "100%", height: "auto" }} />
+              <img
+                src={activeMemory.src}
+                alt={activeMemory.title}
+                className="rounded-[1.25rem]"
+                style={{ width: "100%", height: "auto" }}
+              />
               <figcaption>
                 <strong>{activeMemory.title}</strong>
                 <span>{activeMemory.note}</span>
@@ -637,7 +736,7 @@ function Chapter({
   eyebrow,
   title,
   id,
-  children
+  children,
 }: {
   eyebrow: string;
   title: string;
@@ -662,7 +761,11 @@ function Chapter({
   );
 }
 
-function GrandFinale({ finaleRef }: { finaleRef: React.RefObject<HTMLElement | null> }) {
+function GrandFinale({
+  finaleRef,
+}: {
+  finaleRef: React.RefObject<HTMLElement | null>;
+}) {
   return (
     <motion.section
       ref={finaleRef}
@@ -681,7 +784,7 @@ function GrandFinale({ finaleRef }: { finaleRef: React.RefObject<HTMLElement | n
             style={{
               left: `${(index * 13 + 7) % 100}%`,
               animationDelay: `${index * 0.38}s`,
-              animationDuration: `${9 + (index % 4) * 1.4}s`
+              animationDuration: `${9 + (index % 4) * 1.4}s`,
             }}
           />
         ))}
@@ -727,13 +830,16 @@ function GrandFinale({ finaleRef }: { finaleRef: React.RefObject<HTMLElement | n
 
 function FloatingDecor({
   foundHearts,
-  discoverHeart
+  discoverHeart,
 }: {
   foundHearts: number[];
   discoverHeart: (index: number) => void;
 }) {
   return (
-    <div className="pointer-events-none fixed inset-0 z-20 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none fixed inset-0 z-20 overflow-hidden"
+      aria-hidden="true"
+    >
       {Array.from({ length: 16 }).map((_, index) => (
         <span
           key={index}
@@ -741,7 +847,7 @@ function FloatingDecor({
           style={{
             left: `${(index * 19) % 100}%`,
             animationDelay: `${index * 0.9}s`,
-            animationDuration: `${10 + (index % 5) * 2}s`
+            animationDuration: `${10 + (index % 5) * 2}s`,
           }}
         />
       ))}
