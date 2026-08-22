@@ -5,13 +5,6 @@ import { defineConfig } from "vite";
 
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const rawPort = process.env.PORT ?? "5173";
-const port = Number(rawPort);
-
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
 const basePath = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
@@ -58,7 +51,7 @@ export default defineConfig({
   },
 
   server: {
-    port,
+    port: 5173,
     strictPort: true,
     host: "0.0.0.0",
     allowedHosts: true,
@@ -68,7 +61,7 @@ export default defineConfig({
   },
 
   preview: {
-    port,
+    port: 5173,
     host: "0.0.0.0",
     allowedHosts: true,
   },
