@@ -1,0 +1,1 @@
+- [Imported artifact startup](imported-artifact-startup.md) — wait for live artifact registration before adding fallback workflows; metadata can appear asynchronously after import.
